@@ -1,0 +1,190 @@
+/* src/App.css */
+
+/* This is the main container that fixes the layout */
+.app-container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column; /* Stack vertically: Gallery, Canvas, Controls */
+  overflow: hidden;
+  background-color: #333; /* Dark background for the app */
+}
+
+/* --- Loading / Error States --- */
+.center-message {
+  width: 100%;
+  height: 100%;
+  display: grid;
+  place-items: center;
+  color: white;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 100;
+}
+
+/* --- 1. Top Gallery --- */
+.product-gallery-container {
+  flex-shrink: 0; /* Don't let this shrink */
+  background: rgba(0, 0, 0, 0.7);
+  padding: 10px;
+  max-height: 160px; /* Limit height */
+  overflow-x: auto; /* Enable horizontal scrolling */
+  overflow-y: hidden;
+  display: flex;
+  flex-wrap: nowrap; /* Force a single, horizontal line */
+  gap: 15px;
+  align-items: flex-start;
+  pointer-events: auto; /* FIXES SCROLLING */
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Individual Gallery Item */
+.gallery-item {
+  width: 120px;
+  height: 140px;
+  background-color: #333;
+  border-radius: 8px;
+  overflow: hidden;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  border: 2px solid transparent;
+  pointer-events: auto;
+  flex-shrink: 0;
+}
+.gallery-item.active {
+  border-color: #007bff;
+}
+
+/* Gallery Item Name */
+.gallery-item-name {
+  color: white;
+  font-size: 0.8em;
+  padding: 5px;
+  text-align: center;
+  white-space: normal;
+  word-break: break-word;
+  height: 30px;
+  overflow: hidden;
+}
+
+/* Gallery Model Canvas */
+.gallery-model-canvas {
+  width: 100px;
+  height: 100px;
+  background-color: #222;
+  border-radius: 4px;
+  margin-top: 5px;
+  flex-shrink: 0;
+}
+
+/* --- 2. Main 3D Canvas (Middle) --- */
+#canvas-container {
+  flex-grow: 1; /* This is the key: fill all remaining space */
+  width: 100%;
+  position: relative; /* Must be relative for flex to work */
+}
+
+/* --- 3. Bottom Controls --- */
+.controls-container {
+  flex-shrink: 0;
+  background: rgba(0, 0, 0, 0.7);
+  padding: 15px;
+  display: flex;
+  gap: 15px; /* This creates the space between buttons */
+  justify-content: center;
+  align-items: center;
+  pointer-events: auto; /* Make container clickable */
+  position: relative;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.controls-container > button {
+  pointer-events: auto;
+  padding: 12px 25px;
+  border-radius: 8px;
+  font-weight: bold;
+  font-size: 16px;
+  cursor: pointer;
+  border: none;
+}
+
+.reset-button {
+  background-color: #e0e0e0;
+  color: #333;
+  padding: 12px 25px;
+  border-radius: 8px;
+  font-weight: bold;
+  font-size: 16px;
+  cursor: pointer;
+  border: none;
+  pointer-events: auto;
+}
+
+/* Vercel's AR Button */
+/* Wrapper for the AR button to contain its absolute positioning */
+.ar-button-wrapper {
+  position: relative;
+  /* We remove fixed width/height to let the button define its size */
+}
+
+/* Target the AR button injected by the component */
+.ar-button-wrapper > button[aria-label="Enter AR"] {
+  /* Make it a normal button */
+  position: relative !important; 
+  margin: 0 !important;
+  
+  /* Make styles match the Reset button */
+  padding: 12px 25px !important;
+  border-radius: 8px !important;
+  font-weight: bold !important;
+  font-size: 16px !important;
+  
+  /* Custom colors */
+  background-color: #007bff;
+  color: white;
+}
+
+/* --- AR Scale Controls (Side Overlay) --- */
+.ar-controls-container {
+  position: absolute;
+  top: 50%;
+  right: 20px;
+  transform: translateY(-50%);
+  z-index: 20; /* On top of everything */
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  pointer-events: none;
+}
+.scale-button {
+  pointer-events: auto;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.9);
+  color: #000;
+  font-size: 28px;
+  font-weight: bold;
+  border: none;
+  cursor: pointer;
+}
+
+/* --- Error Boundary Fallback --- */
+.thumbnail-error {
+  width: 100px;
+  height: 100px;
+  display: grid;
+  place-items: center;
+  color: #888;
+  font-size: 2em;
+}
+
+/* (NEW) Text to show on desktop */
+.ar-unsupported-text {
+  font-size: 14px;
+  color: #999;
+}
